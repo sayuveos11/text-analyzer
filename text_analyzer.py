@@ -42,3 +42,19 @@ class TextAnalyzer:
                 frequency_dict[word] += 1
 
         return frequency_dict
+
+    def average_word_length(self):
+        average_count = 0
+        words_list = self.text.split()
+
+        for word in words_list:
+            average_count += len(word)
+
+        if words_list:
+            average_length = average_count / len(words_list)
+        else:
+            average_length = 0
+
+        return average_length
+
+        
