@@ -3,11 +3,21 @@ class TextAnalyzer:
     def __init__(self, text: str):
         self.text = text
 
+    def normalize_text(self):
+        words_text = []
+
+        for char in self.text:
+            if char not in '.?!:;,':
+                words_text.append(char)
+
+        lower_text = "".join(words_text)
+        return lower_text.lower()
+
     def count_character(self):
         return len(self.text)
 
     def count_words(self):
-        words_list = self.text.split()
+        words_list = self.normalize_text().split()
         return len(words_list)
 
     def count_sentences(self):
@@ -21,7 +31,7 @@ class TextAnalyzer:
 
     def count_unique_words(self):
         unique_count = 0
-        lower_text = self.text.lower()
+        lower_text = self.normalize_text()
         unique_list = []
 
         for word in lower_text.split():
@@ -33,7 +43,7 @@ class TextAnalyzer:
 
     def word_frequency(self):
         frequency_dict = {}
-        lower_text = self.text.lower()
+        lower_text = self.normalize_text()
 
         for word in lower_text.split():
             if word not in frequency_dict:
@@ -45,7 +55,7 @@ class TextAnalyzer:
 
     def average_word_length(self):
         average_count = 0
-        words_list = self.text.split()
+        words_list = self.normalize_text().split()
 
         for word in words_list:
             average_count += len(word)
