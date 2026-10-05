@@ -13,7 +13,7 @@ class TextAnalyzer:
         lower_text = "".join(words_text)
         return lower_text.lower()
 
-    def count_character(self):
+    def count_characters(self):
         return len(self.text)
 
     def count_words(self):
@@ -52,7 +52,7 @@ class TextAnalyzer:
                 frequency_dict[word] += 1
 
         return frequency_dict
-
+            
     def average_word_length(self):
         average_count = 0
         words_list = self.normalize_text().split()
@@ -65,6 +65,6 @@ class TextAnalyzer:
         else:
             average_length = 0
 
-        return average_length
+        return round(average_length, 2)
 
         
