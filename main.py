@@ -1,6 +1,24 @@
 from text_analyzer import TextAnalyzer
 from file_handler import FileHandler 
 
+def display_analysis(text):
+    analyzer = TextAnalyzer(text)
+    print("\n=== TEXT ANALYZER ===\n")
+                    
+    print("Characters:", analyzer.count_characters())
+    print("Words:", analyzer.count_words())
+    print("Sentences:", analyzer.count_sentences())
+    print("Unique words:", analyzer.count_unique_words())
+    print(f"Average word length: {analyzer.average_word_length()} \n")
+                        
+    word_frequency_pair = analyzer.word_frequency()
+    print("Word frequency: ")
+                        
+    for k, v in word_frequency_pair.items():
+        print(f"{k}: {v}")
+                        
+    print()
+
 def main():
     analyzer_work = True
 
@@ -21,23 +39,7 @@ def main():
 
         if user_choice == 1:
             text = input("Enter your text: ")
-
-            analyzer = TextAnalyzer(text)
-            print("\n=== TEXT ANALYZER ===\n")
-
-            print("Characters:", analyzer.count_characters())
-            print("Words:", analyzer.count_words())
-            print("Sentences:", analyzer.count_sentences())
-            print("Unique words:", analyzer.count_unique_words())
-            print(f"Average word length: {analyzer.average_word_length()} \n")
-
-            word_frequency_pair = analyzer.word_frequency()
-            print("Word frequency: ")
-
-            for k, v in word_frequency_pair.items():
-                print(f"{k}: {v}")
-
-            print()
+            display_analysis(text)
 
         elif user_choice == 2:
             file_path = input("Enter a path to the file: ")
@@ -45,22 +47,7 @@ def main():
             text = handler.open_file()
 
             if text is not None:
-                analyzer = TextAnalyzer(text)
-                print("\n=== TEXT ANALYZER ===\n")
-                
-                print("Characters:", analyzer.count_characters())
-                print("Words:", analyzer.count_words())
-                print("Sentences:", analyzer.count_sentences())
-                print("Unique words:", analyzer.count_unique_words())
-                print(f"Average word length: {analyzer.average_word_length()} \n")
-                    
-                word_frequency_pair = analyzer.word_frequency()
-                print("Word frequency: ")
-                    
-                for k, v in word_frequency_pair.items():
-                    print(f"{k}: {v}")
-                    
-                print()
+                display_analysis(text)
             else:
                 print("File not found. Please check the file path.")
 
