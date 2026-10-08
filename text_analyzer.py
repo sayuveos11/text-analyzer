@@ -4,13 +4,16 @@ class TextAnalyzer:
         self.text = text
 
     def normalize_text(self):
-        words_text = []
+        text = ""
 
         for char in self.text:
-            if char not in '.?!:;,':
-                words_text.append(char)
+            if char == '.' or char == '?' or char == '!' or char == ',' or char == ';' or char == ':':
+                text += " "
+            else:
+                text += char
 
-        lower_text = "".join(words_text)
+        words_list = text.split()
+        lower_text = " ".join(words_list)
         return lower_text.lower()
 
     def count_characters(self):
