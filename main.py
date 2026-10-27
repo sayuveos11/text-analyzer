@@ -3,21 +3,24 @@ from file_handler import FileHandler
 
 def display_analysis(text):
     analyzer = TextAnalyzer(text)
-    print("\n=== TEXT ANALYZER ===\n")
-                    
-    print("Characters:", analyzer.count_characters())
-    print("Words:", analyzer.count_words())
-    print("Sentences:", analyzer.count_sentences())
-    print("Unique words:", analyzer.count_unique_words())
-    print(f"Average word length: {analyzer.average_word_length()} \n")
-                        
+
+    result = (
+        f"Characters: {analyzer.count_characters()}\n"
+        f"Words: {analyzer.count_words()}\n"
+        f"Sentences: {analyzer.count_sentences()}\n"
+        f"Unique words: {analyzer.count_unique_words()}\n"
+        f"Average word length: {analyzer.average_word_length()}\n"
+    )
+
     word_frequency_pair = analyzer.word_frequency()
-    print("Word frequency: ")
-                        
+
+    result += "\nWord frequency:\n"
+
     for k, v in word_frequency_pair.items():
-        print(f"{k}: {v}")
-                        
-    print()
+        result += f"{k}: {v}\n"
+
+    print(result)
+    return result
 
 def main():
     analyzer_work = True
@@ -47,7 +50,19 @@ def main():
             text = handler.open_file()
 
             if text is not None:
-                display_analysis(text)
+                result = display_analysis(text)
+                user_choice = input("Save results to file? (y/n): ")
+
+                if user_choice.lower() == 'y':
+                    file_path = input("Enter a path to the file: ")
+                    save_handler = FileHandler(file_path)
+                    save_results = save_handler.save_file(result)
+
+                    if save_results:
+                        print("Results saved successfully!")
+                    else:
+                        print("Failed to save results.")
+                    
             else:
                 print("File not found. Please check the file path.")
 

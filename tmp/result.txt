@@ -1,0 +1,10 @@
+Characters: 27
+Words: 4
+Sentences: 2
+Unique words: 3
+Average word length: 5.25
+
+Word frequency:
+hello: 2
+world: 1
+python: 1
