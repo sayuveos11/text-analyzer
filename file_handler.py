@@ -9,3 +9,12 @@ class FileHandler:
                 return data
         except (FileNotFoundError, PermissionError, UnicodeDecodeError):
             return None
+
+    def save_file(self, content):
+        try:
+            with open(self.file_path, 'w', encoding='utf-8') as f:
+                f.write(content)
+        except OSError:
+            return False
+
+        return True
