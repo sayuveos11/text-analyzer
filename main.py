@@ -1,5 +1,6 @@
 from text_analyzer import TextAnalyzer
 from file_handler import FileHandler 
+from pathlib import Path
 
 def display_analysis(text):
     analyzer = TextAnalyzer(text)
@@ -22,6 +23,28 @@ def display_analysis(text):
     print(result)
     return result
 
+def save_analyzis_result(result, source_path=None):
+    user_choice = input("Save results to file? (y/n): ")
+                
+    if user_choice.lower() == 'y':
+
+        while True:
+            file_path = input("Enter a path to the file: ")
+
+            if source_path is not None and Path(file_path).resolve() == Path(source_path).resolve():
+                print("Cannot overwrite the source file!")
+                continue
+
+            save_handler = FileHandler(file_path)
+            save_results = save_handler.save_file(result)
+                    
+            if save_results:
+                print("Results saved successfully!")
+            else:
+                print("Failed to save results.")
+
+            break
+
 def main():
     analyzer_work = True
 
@@ -42,7 +65,8 @@ def main():
 
         if user_choice == 1:
             text = input("Enter your text: ")
-            display_analysis(text)
+            result = display_analysis(text)
+            save_analyzis_result(result) 
 
         elif user_choice == 2:
             file_path = input("Enter a path to the file: ")
@@ -51,20 +75,9 @@ def main():
 
             if text is not None:
                 result = display_analysis(text)
-                user_choice = input("Save results to file? (y/n): ")
-
-                if user_choice.lower() == 'y':
-                    file_path = input("Enter a path to the file: ")
-                    save_handler = FileHandler(file_path)
-                    save_results = save_handler.save_file(result)
-
-                    if save_results:
-                        print("Results saved successfully!")
-                    else:
-                        print("Failed to save results.")
-                    
+                save_analyzis_result(result, source_path=file_path)
             else:
-                print("File not found. Please check the file path.")
+                print("Failed to read the file.")
 
         elif user_choice == 3:
             analyzer_work = False
