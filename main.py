@@ -29,11 +29,17 @@ def save_analyzis_result(result, source_path=None):
     if user_choice.lower() == 'y':
 
         while True:
-            file_path = input("Enter a path to the file: ")
+            file_path = Path(input("Enter a path to the file: "))
 
             if source_path is not None and Path(file_path).resolve() == Path(source_path).resolve():
                 print("Cannot overwrite the source file!")
                 continue
+
+            if file_path.exists():
+                overwrite = input("File already exists. Overwrite? (y/n): ")
+
+                if overwrite.lower() != 'y':
+                    continue
 
             save_handler = FileHandler(file_path)
             save_results = save_handler.save_file(result)
